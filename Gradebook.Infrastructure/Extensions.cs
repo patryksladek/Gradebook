@@ -14,6 +14,8 @@ public static class Extensions
 
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddScoped<IStudentRepository, StudentRepository>();
+
         var options = configuration.GetOptions<MsSqlOptions>(SectionName);
         services.AddDbContext<GradebookDbContext>(ctx =>
             ctx.UseSqlServer(options.ConnectionString));
