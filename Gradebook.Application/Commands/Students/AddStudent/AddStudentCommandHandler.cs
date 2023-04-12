@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using Gradebook.Application.Configuration.Commands;
 using Gradebook.Application.Dtos;
 using Gradebook.Domain.Abstractions;
 using Gradebook.Domain.Entities;
 using Gradebook.Domain.Exceptions.Student;
-using MediatR;
 
 namespace Gradebook.Application.Commands.Students.AddStudent;
 
-internal class AddStudentCommandHandler : IRequestHandler<AddStudentCommand, StudentDto>
+internal class AddStudentCommandHandler : ICommandHandler<AddStudentCommand, StudentDto>
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IUnitOfWork _unitOfWork;

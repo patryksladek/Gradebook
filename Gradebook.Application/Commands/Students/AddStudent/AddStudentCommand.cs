@@ -1,9 +1,9 @@
-﻿using Gradebook.Application.Dtos;
-using MediatR;
+﻿using Gradebook.Application.Configuration.Commands;
+using Gradebook.Application.Dtos;
 
 namespace Gradebook.Application.Commands.Students.AddStudent;
 
-public class AddStudentCommand : IRequest<StudentDto>
+public class AddStudentCommand : ICommand<StudentDto>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

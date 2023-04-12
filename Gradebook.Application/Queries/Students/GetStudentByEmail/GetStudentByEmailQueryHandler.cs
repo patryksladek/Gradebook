@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using Gradebook.Application.Configuration.Queries;
 using Gradebook.Application.Dtos;
 using Gradebook.Domain.Abstractions;
-using MediatR;
 
 namespace Gradebook.Application.Queries.Students.GetStudentByEmail;
 
-internal class GetStudentByEmailQueryHandler : IRequestHandler<GetStudentByEmailQuery, StudentDto>
+internal class GetStudentByEmailQueryHandler : IQueryHandler<GetStudentByEmailQuery, StudentDto>
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IMapper _mapper;

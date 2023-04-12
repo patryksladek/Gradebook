@@ -1,6 +1,6 @@
-﻿using Gradebook.Application.Dtos;
-using MediatR;
+﻿using Gradebook.Application.Configuration.Queries;
+using Gradebook.Application.Dtos;
 
 namespace Gradebook.Application.Queries.Students.GetStudentById;
 
-public record GetStudentByIdQuery(int Id) : IRequest<StudentDto>;
+public record GetStudentByIdQuery(int Id) : IQuery<StudentDto>;

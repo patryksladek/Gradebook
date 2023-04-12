@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using Gradebook.Application.Configuration.Commands;
 
 namespace Gradebook.Application.Commands.Students.UpdateStudent;
 
-public class UpdateStudentCommand : IRequest
+public class UpdateStudentCommand : ICommand
 {
     public int Id { get; set; }
     public string FirstName { get; set; }
