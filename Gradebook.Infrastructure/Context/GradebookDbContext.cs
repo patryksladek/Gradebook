@@ -1,4 +1,5 @@
 ﻿using Gradebook.Domain.Entities;
+using Gradebook.Infrastructure.Config;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gradebook.Infrastructure.Context;
@@ -15,5 +16,7 @@ internal class GradebookDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasDefaultSchema("gradebook");
+
+        modelBuilder.ApplyConfiguration(new StudentConfiguration());
     }
 }
