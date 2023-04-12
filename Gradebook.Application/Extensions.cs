@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -11,6 +12,7 @@ public static class Extensions
         var executingAssembly = Assembly.GetExecutingAssembly();
         services.AddMediatR(executingAssembly);
         services.AddAutoMapper(executingAssembly);
+        services.AddValidatorsFromAssembly(executingAssembly);
 
         return services;
     }
