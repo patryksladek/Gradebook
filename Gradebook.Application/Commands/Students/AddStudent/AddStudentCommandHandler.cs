@@ -1,4 +1,5 @@
-﻿using Gradebook.Application.Dtos;
+﻿using AutoMapper;
+using Gradebook.Application.Dtos;
 using Gradebook.Domain.Abstractions;
 using Gradebook.Domain.Entities;
 using Gradebook.Domain.Exceptions.Student;
@@ -10,11 +11,13 @@ internal class AddStudentCommandHandler : IRequestHandler<AddStudentCommand, Stu
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IMapper _mapper;
 
-    public AddStudentCommandHandler(IStudentRepository studentRepository, IUnitOfWork unitOfWork)
+    public AddStudentCommandHandler(IStudentRepository studentRepository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _studentRepository = studentRepository;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<StudentDto> Handle(AddStudentCommand request, CancellationToken cancellationToken)
@@ -37,15 +40,7 @@ internal class AddStudentCommandHandler : IRequestHandler<AddStudentCommand, Stu
         _studentRepository.Add(newStudent);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        var studentDto = new StudentDto()
-        {
-            Id = newStudent.Id,
-            FirstName = newStudent.FirstName,
-            LastName = newStudent.LastName,
-            Email = newStudent.Email,
-            Age = DateTime.Today.Year - newStudent.DateOfBirth.ToDateTime(TimeOnly.Parse("10:00")).Year,
-            YearEnrolled = newStudent.YearEnrolled
-        };
+        var studentDto = _mapper.Map<StudentDto>(newStudent);
 
         return studentDto;
     }
