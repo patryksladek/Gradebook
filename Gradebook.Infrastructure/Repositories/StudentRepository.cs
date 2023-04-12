@@ -14,9 +14,6 @@ internal class StudentRepository : IStudentRepository
         _dbContext = dbContext;
     }
 
-    public async Task<IEnumerable<Student>> GetAllAsync(CancellationToken cancellationToken = default)
-        => await _dbContext.Students.ToListAsync(cancellationToken);
-
     public async Task<Student> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         => await _dbContext.Students.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 

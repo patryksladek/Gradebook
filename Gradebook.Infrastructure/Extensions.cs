@@ -16,6 +16,7 @@ public static class Extensions
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+        services.AddScoped<IStudentReadOnlyRepository, StudentReadOnlyRepository>();
         services.AddScoped<IStudentRepository, StudentRepository>();
 
         var options = configuration.GetOptions<MsSqlOptions>(SectionName);
