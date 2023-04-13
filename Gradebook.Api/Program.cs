@@ -10,6 +10,10 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddPresentation();
 
+// Configure the host builder.
+
+builder.Host.UseInfrastructure();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
