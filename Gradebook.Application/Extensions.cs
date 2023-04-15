@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
-using MediatR;
+using Gradebook.Application.Commands.Students.AddStudent;
+using Gradebook.Application.Commands.Students.UpdateStudent;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -13,7 +14,10 @@ public static class Extensions
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(executingAssembly));
         services.AddAutoMapper(executingAssembly);
+
         services.AddValidatorsFromAssembly(executingAssembly);
+        services.AddScoped<IValidator<AddStudentCommand>, AddStudentCommandValidator>();
+        services.AddScoped<IValidator<UpdateStudentCommand>, UpdateStudentCommandValidator>();
 
         return services;
     }
