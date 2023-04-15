@@ -26,13 +26,6 @@ internal class AddStudentCommandHandler : ICommandHandler<AddStudentCommand, Stu
 
     public async Task<StudentDto> Handle(AddStudentCommand request, CancellationToken cancellationToken)
     {
-        ValidationResult result = await _validator.ValidateAsync(request);
-        if (!result.IsValid)
-        {
-            var errorsList = result.Errors.Select(x => x.ErrorMessage);
-            throw new ValidationException($"Invalid command, reasons: {string.Join(", ", errorsList.ToArray())}");
-        }
-
         bool isAlreadyExist = await _studentRepository.IsAlreadyExistAsync(request.Email, cancellationToken);
         if (isAlreadyExist)
         {

@@ -32,11 +32,13 @@ internal sealed class ExceptionHandlingMiddleware : IMiddleware
         {
             title = exception.Message,
             status = statusCode,
+            errors = GetErrors(exception)
         };
         httpContext.Response.ContentType = "application/json";
         httpContext.Response.StatusCode = statusCode;
         await httpContext.Response.WriteAsync(JsonSerializer.Serialize(response));
     }
+
     private static int GetStatusCode(Exception exception) =>
         exception switch
         {
@@ -44,4 +46,16 @@ internal sealed class ExceptionHandlingMiddleware : IMiddleware
             ValidationException => StatusCodes.Status422UnprocessableEntity,
             _ => StatusCodes.Status500InternalServerError
         };
+
+    private static IReadOnlyDictionary<string, string[]> GetErrors(Exception exception)
+    {
+        IReadOnlyDictionary<string, string[]> errors = null;
+
+        if (exception is ValidationException validationException)
+        {
+            errors = validationException.Errors.ToDictionary(x => x.PropertyName, x => x.ErrorMessage.Split(","));
+        }
+
+        return errors;
+    }
 }

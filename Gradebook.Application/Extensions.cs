@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using Gradebook.Application.Commands.Students.AddStudent;
 using Gradebook.Application.Commands.Students.UpdateStudent;
+using Gradebook.Application.Configuration.Validation;
 using Gradebook.Application.Middlewares;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -21,6 +23,7 @@ public static class Extensions
         services.AddScoped<IValidator<AddStudentCommand>, AddStudentCommandValidator>();
         services.AddScoped<IValidator<UpdateStudentCommand>, UpdateStudentCommandValidator>();
 
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CommandValidationBehavior<,>));
         services.AddTransient<ExceptionHandlingMiddleware>();
 
         return services;
