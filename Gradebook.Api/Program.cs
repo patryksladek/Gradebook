@@ -19,5 +19,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 
 app.UsePresentation();
+app.UseApplication();
 
 app.Run();
