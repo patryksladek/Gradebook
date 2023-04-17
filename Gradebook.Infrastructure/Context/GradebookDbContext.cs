@@ -24,5 +24,6 @@ internal class GradebookDbContext : DbContext
         modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
         modelBuilder.ApplyConfiguration(new CourseConfiguration());
         modelBuilder.ApplyConfiguration(new StudentCourseConfiguration());
+        modelBuilder.ApplyConfiguration(new GradeConfiguration());
     }
 }
