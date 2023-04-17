@@ -1,4 +1,5 @@
 ﻿using Gradebook.Application.Commands.Departments.AddDepartment;
+using Gradebook.Application.Commands.Departments.RemoveDepartment;
 using Gradebook.Application.Dtos;
 using Gradebook.Application.Queries.Departments.GetDepartments;
 using MediatR;
@@ -35,5 +36,14 @@ public class DepartmentsController : Controller
     {
         var department = await _mediator.Send(command);
         return Created($"departments/{department.Id}", department);
+    }
+
+    [HttpDelete("{id}")]
+    [SwaggerOperation("Remove department")]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    public async Task<ActionResult> Delete([FromRoute] int id)
+    {
+        await _mediator.Send(new RemoveDepartmentCommand(id));
+        return NoContent();
     }
 }

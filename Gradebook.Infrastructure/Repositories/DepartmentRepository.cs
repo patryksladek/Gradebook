@@ -18,11 +18,19 @@ internal class DepartmentRepository : IDepartmentRepository
     }
 
     public async Task<Department> GetByIdAsync(int id, CancellationToken cancellationToken = default)
-       => await _dbContext.Departments.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+        => await _dbContext.Departments.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
+    public async Task<Department> GetByIdWithStudentsAsync(int id, CancellationToken cancellationToken = default)
+        => await _dbContext.Departments
+            .Include(x => x.Students)
+            .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+    
     public async Task<bool> IsAlreadyExistAsync(string name, CancellationToken cancellationToken = default)
         => await _dbContext.Departments.SingleOrDefaultAsync(x => x.Name == name, cancellationToken) is not null;
 
     public void Add(Department department)
         => _dbContext.Departments.Add(department);
+
+    public void Remove(Department department)
+        => _dbContext.Departments.Remove(department);
 }
