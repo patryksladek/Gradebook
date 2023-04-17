@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Gradebook.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddressesTable : Migration
+    public partial class AddAddressesTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

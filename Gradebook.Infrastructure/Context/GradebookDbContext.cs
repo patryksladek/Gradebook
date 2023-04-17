@@ -7,7 +7,7 @@ namespace Gradebook.Infrastructure.Context;
 internal class GradebookDbContext : DbContext
 {
     public DbSet<Student> Students { get; set; }
-
+    public DbSet<Department> Departments { get; set; }
 
     public GradebookDbContext(DbContextOptions options) : base(options)
     {
@@ -19,5 +19,6 @@ internal class GradebookDbContext : DbContext
 
         modelBuilder.ApplyConfiguration(new StudentConfiguration());
         modelBuilder.ApplyConfiguration(new AddressConfiguration());
+        modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
     }
 }

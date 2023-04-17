@@ -4,6 +4,7 @@ using Gradebook.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gradebook.Infrastructure.Migrations
 {
     [DbContext(typeof(GradebookDbContext))]
-    partial class GradebookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230417125033_AddAddressesTable")]
+    partial class AddAddressesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,38 +74,6 @@ namespace Gradebook.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Addresses", "gradebook");
-                });
-
-            modelBuilder.Entity("Gradebook.Domain.Entities.Department", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Building")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2(0)");
-
-                    b.Property<DateTime>("ModifiedAt")
-                        .HasColumnType("datetime2(0)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Departments", "gradebook");
                 });
 
             modelBuilder.Entity("Gradebook.Domain.Entities.Student", b =>
