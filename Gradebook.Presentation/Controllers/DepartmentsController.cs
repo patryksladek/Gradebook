@@ -1,4 +1,6 @@
 ﻿using Gradebook.Application.Commands.Departments.AddDepartment;
+using Gradebook.Application.Dtos;
+using Gradebook.Application.Queries.Departments.GetDepartments;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -15,6 +17,15 @@ public class DepartmentsController : Controller
     public DepartmentsController(IMediator mediator)
 	{
         _mediator = mediator;
+    }
+
+    [HttpGet]
+    [SwaggerOperation("Get departments")]
+    [ProducesResponseType(typeof(IEnumerable<DepartmentDto>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult> GetAll()
+    {
+        var result = await _mediator.Send(new GetDepartmentsQuery());
+        return Ok(result);
     }
 
     [HttpPost()]
