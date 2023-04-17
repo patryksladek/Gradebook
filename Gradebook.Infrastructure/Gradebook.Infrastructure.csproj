@@ -35,4 +35,10 @@
     </None>
   </ItemGroup>
 
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+			<_Parameter1>Gradebook.IntegrationTests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
 </Project>
