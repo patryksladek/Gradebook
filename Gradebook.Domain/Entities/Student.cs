@@ -9,4 +9,7 @@ public class Student : Entity
     public int YearEnrolled { get; set; }
 
     public Address Address { get; set; }
+
+    public int DepartmentId { get; set; }
+    public Department Department { get; set; }
 }

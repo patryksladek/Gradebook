@@ -15,10 +15,16 @@ internal class StudentRepository : IStudentRepository
     }
 
     public async Task<Student> GetByIdAsync(int id, CancellationToken cancellationToken = default)
-        => await _dbContext.Students.Include(x => x.Address).SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+        => await _dbContext.Students
+        .Include(x => x.Address)
+        .Include(x => x.Department)
+        .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
     public async Task<Student> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
-        => await _dbContext.Students.Include(x => x.Address).SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
+        => await _dbContext.Students
+        .Include(x => x.Address)
+        .Include(x => x.Department)
+        .SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
 
     public async Task<bool> IsAlreadyExistAsync(string email, CancellationToken cancellationToken = default)
         => await _dbContext.Students.AnyAsync(x => x.Email == email, cancellationToken);

@@ -17,6 +17,9 @@ internal class DepartmentRepository : IDepartmentRepository
         _dbContext = dbContext;
     }
 
+    public async Task<Department> GetByIdAsync(int id, CancellationToken cancellationToken = default)
+       => await _dbContext.Departments.SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+
     public async Task<bool> IsAlreadyExistAsync(string name, CancellationToken cancellationToken = default)
         => await _dbContext.Departments.SingleOrDefaultAsync(x => x.Name == name, cancellationToken) is not null;
 

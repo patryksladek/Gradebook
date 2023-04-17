@@ -37,6 +37,10 @@ public class StudentConfiguration : BaseEntityConfiguration<Student>
           .WithOne(a => a.Student)
           .HasForeignKey<Address>(a => a.StudentId);
 
+        builder.HasOne(s => s.Department)
+          .WithMany(d => d.Students)
+          .HasForeignKey(d => d.DepartmentId);
+
         base.Configure(builder);
     }
 }

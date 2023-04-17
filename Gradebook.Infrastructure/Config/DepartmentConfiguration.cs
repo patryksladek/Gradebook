@@ -20,6 +20,10 @@ public class DepartmentConfiguration : BaseEntityConfiguration<Department>
             .HasMaxLength(8)
             .IsRequired();
 
+        builder.HasMany(d => d.Students)
+           .WithOne(s => s.Department)
+           .HasForeignKey(s => s.DepartmentId);
+
         base.Configure(builder);
     }
 }

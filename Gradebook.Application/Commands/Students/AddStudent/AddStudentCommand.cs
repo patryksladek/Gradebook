@@ -16,4 +16,6 @@ public class AddStudentCommand : ICommand<StudentDetailsDto>
     public string City { get; set; }
     public string PostalCode { get; set; }
     public string Country { get; set; }
+
+    public int DepartmentId { get; set; }
 }

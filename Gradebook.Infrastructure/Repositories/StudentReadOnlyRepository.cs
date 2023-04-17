@@ -20,6 +20,7 @@ internal class StudentReadOnlyRepository : IStudentReadOnlyRepository
     public async Task<IEnumerable<Student>> GetAllWithDetailsAsync(CancellationToken cancellationToken = default)
        => await _dbContext.Students
        .Include(x => x.Address)
+       .Include(x => x.Department)
        .AsNoTracking()
        .ToListAsync(cancellationToken);
 }
