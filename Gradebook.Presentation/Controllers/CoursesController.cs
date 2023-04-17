@@ -1,4 +1,5 @@
 ﻿using Gradebook.Application.Commands.Courses.AddCourse;
+using Gradebook.Application.Commands.Courses.EnrollStudentToCourse;
 using Gradebook.Application.Dtos;
 using Gradebook.Application.Queries.Courses.GetCourses;
 using MediatR;
@@ -35,5 +36,14 @@ public class CoursesController : Controller
     {
         var result = await _mediator.Send(command);
         return Created($"/api/courses/{result.Id}", result);
+    }
+
+    [HttpPost("{courseId}/students/{studentId}")]
+    [SwaggerOperation("Enroll student to course")]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    public async Task<ActionResult> EnrollStudentToCourse([FromRoute] int courseId, [FromRoute] int studentId)
+    {
+        await _mediator.Send(new EnrollStudentToCourseCommand(courseId, studentId));
+        return NoContent();
     }
 }

@@ -12,4 +12,6 @@ public class Student : Entity
 
     public int DepartmentId { get; set; }
     public Department Department { get; set; }
+
+    public ICollection<StudentCourse> StudentCourses { get; set; }
 }
