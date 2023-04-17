@@ -38,7 +38,15 @@ internal class AddStudentCommandHandler : ICommandHandler<AddStudentCommand, Stu
             LastName = request.LastName,
             Email = request.Email,
             DateOfBirth = request.DateOfBirth,
-            YearEnrolled = request.YearEnrolled
+            YearEnrolled = request.YearEnrolled,
+            Address = new Address()
+            {
+                StreetName = request.StreetName,
+                StreetNumber = request.StreetNumber,
+                City = request.City,
+                PostalCode = request.PostalCode,
+                Country = request.Country
+            }
         };
             
         _studentRepository.Add(newStudent);

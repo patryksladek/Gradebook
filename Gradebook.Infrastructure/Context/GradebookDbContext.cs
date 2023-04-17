@@ -18,5 +18,6 @@ internal class GradebookDbContext : DbContext
         modelBuilder.HasDefaultSchema("gradebook");
 
         modelBuilder.ApplyConfiguration(new StudentConfiguration());
+        modelBuilder.ApplyConfiguration(new AddressConfiguration());
     }
 }

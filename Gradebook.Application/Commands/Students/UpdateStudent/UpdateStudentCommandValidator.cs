@@ -26,5 +26,25 @@ public class UpdateStudentCommandValidator : AbstractValidator<UpdateStudentComm
         RuleFor(x => x.YearEnrolled)
             .NotEmpty().WithMessage("Year enrolled is required.")
             .LessThanOrEqualTo(DateTime.Now.Year).WithMessage("Invalid year enrolled.");
+
+        RuleFor(x => x.StreetName)
+           .NotEmpty().WithMessage("Street name is required.")
+           .MaximumLength(100).WithMessage("Street name cannot be longer than 100 characters.");
+
+        RuleFor(x => x.StreetNumber)
+            .NotEmpty().WithMessage("Street number is required.")
+            .MaximumLength(10).WithMessage("Street number cannot be longer than 10 characters.");
+
+        RuleFor(x => x.City)
+            .NotEmpty().WithMessage("City is required.")
+            .MaximumLength(50).WithMessage("City name cannot be longer than 50 characters.");
+
+        RuleFor(x => x.PostalCode)
+            .NotEmpty().WithMessage("Postal code is required.")
+            .MaximumLength(10).WithMessage("Postal code cannot be longer than 10 characters.");
+
+        RuleFor(x => x.Country)
+            .NotEmpty().WithMessage("Country is required.")
+            .MaximumLength(50).WithMessage("Country name cannot be longer than 50 characters.");
     }
 }

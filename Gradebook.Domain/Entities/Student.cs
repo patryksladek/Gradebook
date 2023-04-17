@@ -7,4 +7,6 @@ public class Student : Entity
     public string Email { get; set; }
     public DateOnly DateOfBirth { get; set; }
     public int YearEnrolled { get; set; }
+
+    public Address Address { get; set; }
 }
