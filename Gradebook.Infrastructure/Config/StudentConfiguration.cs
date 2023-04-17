@@ -33,6 +33,10 @@ public class StudentConfiguration : BaseEntityConfiguration<Student>
         builder.Property(s => s.YearEnrolled)
           .IsRequired();
 
+        builder.HasOne(s => s.Address)
+          .WithOne(a => a.Student)
+          .HasForeignKey<Address>(a => a.StudentId);
+
         base.Configure(builder);
     }
 }
