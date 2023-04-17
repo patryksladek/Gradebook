@@ -19,6 +19,12 @@ internal class CourseRepository : ICourseRepository
         .Include(x => x.CourseStudents)
         .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
 
+    public async Task<Course> GetByIdWithStudentsAsync(int id, CancellationToken cancellationToken = default)
+         => await _dbContext.Courses
+                .Include(x => x.CourseStudents).ThenInclude(x => x.Student)
+                .SingleOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+
     public async Task<bool> IsAlreadyExistAsync(string name, CancellationToken cancellationToken = default)
         => await _dbContext.Courses.AnyAsync(x => x.Name == name, cancellationToken);
 

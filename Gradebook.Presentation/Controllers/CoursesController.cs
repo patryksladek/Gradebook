@@ -2,6 +2,7 @@
 using Gradebook.Application.Commands.Courses.EnrollStudentToCourse;
 using Gradebook.Application.Dtos;
 using Gradebook.Application.Queries.Courses.GetCourses;
+using Gradebook.Application.Queries.Courses.GetCourseStudents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -26,6 +27,15 @@ public class CoursesController : Controller
     public async Task<ActionResult> Get()
     {
         var result = await _mediator.Send(new GetCoursesQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("{courseId}/students")]
+    [SwaggerOperation("Get course students")]
+    [ProducesResponseType(typeof(IEnumerable<StudentDto>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult> GetCourseStudents([FromRoute] int courseId)
+    {
+        var result = await _mediator.Send(new GetCourseStudentsQuery(courseId));
         return Ok(result);
     }
 
