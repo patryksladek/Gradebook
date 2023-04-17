@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Gradebook.Application.Dtos;
 using System.Net;
+using Gradebook.Application.Queries.Students.GetStudentsWithDetails;
 
 namespace Gradebook.Api.Controllers;
 
@@ -29,6 +30,16 @@ public class StudentsController : Controller
     public async Task<ActionResult> Get()
     {
         var result = await _mediator.Send(new GetStudentsQuery());
+        return Ok(result);
+    }
+
+
+    [HttpGet("[action]")]
+    [SwaggerOperation("Get students with details")]
+    [ProducesResponseType(typeof(IEnumerable<StudentDetailsDto>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult> GetWithDetails()
+    {
+        var result = await _mediator.Send(new GetStudentsWithDetailsQuery());
         return Ok(result);
     }
 
