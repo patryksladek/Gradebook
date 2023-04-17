@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using Gradebook.Application.Dtos;
 using System.Net;
 using Gradebook.Application.Queries.Students.GetStudentsWithDetails;
+using Gradebook.Application.Commands.Students.ChangeStudentDepartment;
 
 namespace Gradebook.Api.Controllers;
 
@@ -79,6 +80,15 @@ public class StudentsController : Controller
     public async Task<ActionResult> Put([FromBody] UpdateStudentCommand command)
     {
         await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpPut("{id}/[action]/{departmentId}")]
+    [SwaggerOperation("Change student department")]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    public async Task<ActionResult> ChangeDepartment(int id, int departmentId)
+    {
+        await _mediator.Send(new ChangeStudentDepartmentCommand(id, departmentId));
         return NoContent();
     }
 
