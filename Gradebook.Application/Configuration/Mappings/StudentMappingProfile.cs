@@ -9,6 +9,9 @@ public class StudentMappingProfile : Profile
     public StudentMappingProfile()
     {
         CreateMap<Student, StudentDto>()
-                   .ForMember(dest => dest.Age, conf => conf.MapFrom(model => (DateTime.Today.Year - model.DateOfBirth.ToDateTime(TimeOnly.Parse("10:00")).Year)));
+            .ForMember(dest => dest.Age, conf => conf.MapFrom(model => (DateTime.Today.Year - model.DateOfBirth.ToDateTime(TimeOnly.Parse("10:00")).Year)));
+        CreateMap<Student, StudentDetailsDto>()
+           .ForMember(dest => dest.Age, conf => conf.MapFrom(model => (DateTime.Today.Year - model.DateOfBirth.ToDateTime(TimeOnly.Parse("10:00")).Year)));
+        CreateMap<Address, AddressDto>();
     }
 }

@@ -5,7 +5,7 @@ using Gradebook.Domain.Abstractions;
 
 namespace Gradebook.Application.Queries.Students.GetStudentByEmail;
 
-internal class GetStudentByEmailQueryHandler : IQueryHandler<GetStudentByEmailQuery, StudentDto>
+internal class GetStudentByEmailQueryHandler : IQueryHandler<GetStudentByEmailQuery, StudentDetailsDto>
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IMapper _mapper;
@@ -16,11 +16,11 @@ internal class GetStudentByEmailQueryHandler : IQueryHandler<GetStudentByEmailQu
         _mapper = mapper;
     }
 
-    public async Task<StudentDto> Handle(GetStudentByEmailQuery request, CancellationToken cancellationToken)
+    public async Task<StudentDetailsDto> Handle(GetStudentByEmailQuery request, CancellationToken cancellationToken)
     {
         var student = await _studentRepository.GetByEmailAsync(request.Email, cancellationToken);
 
-        var studentDto = _mapper.Map<StudentDto>(student);
+        var studentDto = _mapper.Map<StudentDetailsDto>(student);
 
         return studentDto;
     }

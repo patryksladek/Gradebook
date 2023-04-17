@@ -3,4 +3,4 @@ using Gradebook.Application.Dtos;
 
 namespace Gradebook.Application.Queries.Students.GetStudentById;
 
-public record GetStudentByIdQuery(int Id) : IQuery<StudentDto>;
+public record GetStudentByIdQuery(int Id) : IQuery<StudentDetailsDto>;

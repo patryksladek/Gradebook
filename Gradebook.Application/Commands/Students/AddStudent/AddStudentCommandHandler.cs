@@ -9,7 +9,7 @@ using Gradebook.Domain.Exceptions.Student;
 
 namespace Gradebook.Application.Commands.Students.AddStudent;
 
-internal class AddStudentCommandHandler : ICommandHandler<AddStudentCommand, StudentDto>
+internal class AddStudentCommandHandler : ICommandHandler<AddStudentCommand, StudentDetailsDto>
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IUnitOfWork _unitOfWork;
@@ -24,7 +24,7 @@ internal class AddStudentCommandHandler : ICommandHandler<AddStudentCommand, Stu
         _validator = validator;
     }
 
-    public async Task<StudentDto> Handle(AddStudentCommand request, CancellationToken cancellationToken)
+    public async Task<StudentDetailsDto> Handle(AddStudentCommand request, CancellationToken cancellationToken)
     {
         bool isAlreadyExist = await _studentRepository.IsAlreadyExistAsync(request.Email, cancellationToken);
         if (isAlreadyExist)
@@ -52,7 +52,7 @@ internal class AddStudentCommandHandler : ICommandHandler<AddStudentCommand, Stu
         _studentRepository.Add(newStudent);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        var studentDto = _mapper.Map<StudentDto>(newStudent);
+        var studentDto = _mapper.Map<StudentDetailsDto>(newStudent);
 
         return studentDto;
     }

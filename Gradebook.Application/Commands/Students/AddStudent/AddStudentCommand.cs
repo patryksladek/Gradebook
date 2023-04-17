@@ -3,7 +3,7 @@ using Gradebook.Application.Dtos;
 
 namespace Gradebook.Application.Commands.Students.AddStudent;
 
-public class AddStudentCommand : ICommand<StudentDto>
+public class AddStudentCommand : ICommand<StudentDetailsDto>
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
