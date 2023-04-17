@@ -12,6 +12,7 @@ using System.Net;
 using Gradebook.Application.Queries.Students.GetStudentsWithDetails;
 using Gradebook.Application.Commands.Students.ChangeStudentDepartment;
 using Gradebook.Application.Queries.Students.GetStudentCourses;
+using Gradebook.Application.Queries.Students.GetStudentCourseGrades;
 
 namespace Gradebook.Api.Controllers;
 
@@ -71,6 +72,15 @@ public class StudentsController : Controller
     public async Task<IActionResult> GetStudentCourses([FromRoute] int studentId)
     {
         var orders = await _mediator.Send(new GetStudentCoursesQuery(studentId));
+        return Ok(orders);
+    }
+
+    [HttpGet("{studentId}/courses/{courseId}/grades")]
+    [SwaggerOperation("Get student course grades")]
+    [ProducesResponseType(typeof(IEnumerable<GradeDto>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetStudentCourseGrades([FromRoute] int studentId, [FromRoute] int courseId)
+    {
+        var orders = await _mediator.Send(new GetStudentCourseGradesQuery(studentId, courseId));
         return Ok(orders);
     }
 
