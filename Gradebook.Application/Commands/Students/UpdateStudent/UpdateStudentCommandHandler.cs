@@ -11,14 +11,12 @@ internal class UpdateStudentCommandHandler : ICommandHandler<UpdateStudentComman
 {
     private readonly IStudentRepository _studentRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private IValidator<UpdateStudentCommand> _validator;
 
 
-    public UpdateStudentCommandHandler(IStudentRepository studentRepository, IUnitOfWork unitOfWork, IValidator<UpdateStudentCommand> validator)
+    public UpdateStudentCommandHandler(IStudentRepository studentRepository, IUnitOfWork unitOfWork)
     {
         _studentRepository = studentRepository;
         _unitOfWork = unitOfWork;
-        _validator = validator;
     }
 
     public async Task Handle(UpdateStudentCommand request, CancellationToken cancellationToken)

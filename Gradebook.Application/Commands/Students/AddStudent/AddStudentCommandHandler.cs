@@ -16,15 +16,13 @@ internal class AddStudentCommandHandler : ICommandHandler<AddStudentCommand, Stu
     private readonly IDepartmentRepository _departmentRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
-    private IValidator<AddStudentCommand> _validator;
 
-    public AddStudentCommandHandler(IStudentRepository studentRepository, IDepartmentRepository departmentRepository, IUnitOfWork unitOfWork, IMapper mapper, IValidator<AddStudentCommand> validator)
+    public AddStudentCommandHandler(IStudentRepository studentRepository, IDepartmentRepository departmentRepository, IUnitOfWork unitOfWork, IMapper mapper)
     {
         _studentRepository = studentRepository;
         _departmentRepository = departmentRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
-        _validator = validator;
     }
 
     public async Task<StudentDetailsDto> Handle(AddStudentCommand request, CancellationToken cancellationToken)
