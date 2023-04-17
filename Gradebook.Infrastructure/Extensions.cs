@@ -26,6 +26,7 @@ public static class Extensions
         services.AddScoped<IDepartmentReadOnlyRepository, DepartmentReadOnlyRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
+        services.AddScoped<ICourseReadOnlyRepository, CourseReadOnlyRepository>();
         services.AddScoped<ICourseRepository, CourseRepository>();
 
         var options = configuration.GetOptions<MsSqlOptions>(SectionName);
