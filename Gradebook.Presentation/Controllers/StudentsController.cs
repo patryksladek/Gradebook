@@ -11,6 +11,7 @@ using Gradebook.Application.Dtos;
 using System.Net;
 using Gradebook.Application.Queries.Students.GetStudentsWithDetails;
 using Gradebook.Application.Commands.Students.ChangeStudentDepartment;
+using Gradebook.Application.Queries.Students.GetStudentCourses;
 
 namespace Gradebook.Api.Controllers;
 
@@ -62,6 +63,15 @@ public class StudentsController : Controller
     {
         var result = await _mediator.Send(new GetStudentByEmailQuery(email));
         return result != null ? Ok(result) : NotFound();
+    }
+
+    [HttpGet("{studentId}/courses")]
+    [SwaggerOperation("Get student courses")]
+    [ProducesResponseType(typeof(IEnumerable<CourseDto>), (int)HttpStatusCode.OK)]
+    public async Task<IActionResult> GetStudentCourses([FromRoute] int studentId)
+    {
+        var orders = await _mediator.Send(new GetStudentCoursesQuery(studentId));
+        return Ok(orders);
     }
 
     [HttpPost()]
