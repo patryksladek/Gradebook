@@ -1,6 +1,7 @@
 ﻿using Gradebook.Application.Commands.Courses.AddCourse;
 using Gradebook.Application.Commands.Courses.EnrollStudentToCourse;
 using Gradebook.Application.Commands.Courses.RemoveStudentFromCourse;
+using Gradebook.Application.Commands.Courses.TransferStudentBetweenCourses;
 using Gradebook.Application.Dtos;
 using Gradebook.Application.Queries.Courses.GetCourses;
 using Gradebook.Application.Queries.Courses.GetCourseStudents;
@@ -55,6 +56,15 @@ public class CoursesController : Controller
     public async Task<ActionResult> EnrollStudentToCourse([FromRoute] int courseId, [FromRoute] int studentId)
     {
         await _mediator.Send(new EnrollStudentToCourseCommand(courseId, studentId));
+        return NoContent();
+    }
+
+    [HttpPut("{oldCourseId}/{newCourseId}/students/{studentId}")]
+    [SwaggerOperation("Transfer student between courses")]
+    [ProducesResponseType((int)HttpStatusCode.NoContent)]
+    public async Task<ActionResult> TransferStudentBetweenCourses([FromRoute] int oldCourseId, [FromRoute] int newCourseId, [FromRoute] int studentId)
+    {
+        await _mediator.Send(new TransferStudentBetweenCoursesCommand(oldCourseId, newCourseId, studentId));
         return NoContent();
     }
 
