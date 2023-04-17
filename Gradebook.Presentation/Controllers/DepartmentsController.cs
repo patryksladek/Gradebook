@@ -1,6 +1,7 @@
 ﻿using Gradebook.Application.Commands.Departments.AddDepartment;
 using Gradebook.Application.Commands.Departments.RemoveDepartment;
 using Gradebook.Application.Dtos;
+using Gradebook.Application.Queries.Department.GetDepartmentStudents;
 using Gradebook.Application.Queries.Departments.GetDepartments;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,15 @@ public class DepartmentsController : Controller
     public async Task<ActionResult> GetAll()
     {
         var result = await _mediator.Send(new GetDepartmentsQuery());
+        return Ok(result);
+    }
+
+    [HttpGet("{id}/students")]
+    [SwaggerOperation("Get department students")]
+    [ProducesResponseType(typeof(IEnumerable<StudentDto>), (int)HttpStatusCode.OK)]
+    public async Task<ActionResult> GetDepartmentStudents([FromRoute] int id)
+    {
+        var result = await _mediator.Send(new GetDepartmentStudentsQuery(id));
         return Ok(result);
     }
 
